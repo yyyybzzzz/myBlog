@@ -4,18 +4,27 @@
     <img class="avatar" src="../../assets/img/avatar2.jpg">
 
     <ul class="nav">
-      <li><a class="nav-button" href="#" title="博客"><i class='icon-wenzhang iconfont'></i></a></li>
-      <li><a class="nav-button" href="#"><i class='icon-tag1 iconfont'></i></a></li>
-      <li><a class="nav-button" href="#"><i class='icon-wo iconfont'></i></a></li>
+      <li>
+        <router-link to="/article" class="nav-button"><i
+          class='icon-wenzhang iconfont'></i></router-link>
+      </li>
+      <li>
+        <router-link to="/tag" class="nav-button"><i
+          class='icon-tag1 iconfont'></i></router-link>
+      </li>
+      <li>
+        <router-link to="/me" class="nav-button"><i class='icon-wo iconfont'></i></router-link>
+      </li>
     </ul>
     <ul class="logout">
       <li><a class="nav-button" href="#"><i class='icon-tuichu iconfont'></i></a></li>
     </ul>
   </div>
 </template>
+
 <script>
   export default{
-    name: "sidebar",
+    name: "SideBar",
   }
 </script>
 <style scoped>
@@ -52,7 +61,8 @@
     /*margin-top: 30px;*/
     padding: 20px 0;
   }
-  .logout{
+
+  .logout {
     width: 80%;
     text-align: center;
     display: inline-block;
@@ -60,9 +70,11 @@
     bottom: 0;
     display: block;
   }
-  .logout>li{
+
+  .logout > li {
     padding: 20px 0;
   }
+
   .nav-button {
     text-align: center;
     display: inline-block;
@@ -78,7 +90,10 @@
 
   }
 
-  .nav-button:active {
+  .router-link-active {
+    border: 1px solid #42b983;
+    color: #fff;
+    background-color: #42b983;
     border: 1px solid #42b983;
   }
 
