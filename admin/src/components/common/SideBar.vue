@@ -34,7 +34,7 @@
     width: 80px;
     height: 100%;
     text-align: center;
-    padding: 0px 12px 0px 12px;
+    /*padding: 0px 12px 0px 12px;*/
     border-right: 1px solid #ececec;
     left: 0;
     top: 0;

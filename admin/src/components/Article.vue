@@ -1,19 +1,23 @@
 <template>
   <div class="article">
     <side-bar></side-bar>
-    <div class="test"></div>
-    <div class="post-edit">
+    <section class="article-list">
+      <h3 class="page-title"><i class="icon-wenzhang iconfont"></i> 文章列表
+        <i class="iconfont icon-jiahao article-add"></i></h3>
+      <article-list></article-list>
+    </section>
+    <div class="article-edit">
+      <editor></editor>
     </div>
   </div>
 </template>
 <style scoped>
   .article {
-    margin-left: 105px;
+    margin-left: 80px;
     height: 100%;
-
   }
 
-  .test {
+  .article-list {
     float: left;
     background-color: #fff;
     border-right: 1px solid #ececec;
@@ -21,19 +25,37 @@
     height: 100%;
     overflow-y: auto;
   }
-  .post-edit{
-    background-color: #f00;
-    width: 300px;
+
+  .page-title {
+    padding-left: 25px;
+    font-weight: 400;
+  }
+
+  .article-add {
+    cursor: pointer;
+    float: right;
+    margin-right: 10px;
+    margin-top: 2px;
+  }
+
+  .iconfont {
+    font-size: 22px;
+  }
+
+  .article-edit{
     height: 100%;
+    /*padding: 10px;*/
     overflow: auto;
   }
 </style>
 <script>
   import SideBar from './common/SideBar.vue'
+  import ArticleList from './common/ArticleList.vue'
+  import Editor from './common/Editor.vue'
 
   export default{
     components: {
-      SideBar
+      SideBar, ArticleList,Editor
     }
   }
 
