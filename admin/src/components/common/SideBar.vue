@@ -1,66 +1,94 @@
 <template>
-  <div class = "sidebar">
-    <div class="avatar">
-      <img src="../../assets/img/avatar2.jpg">
-    </div>
-    <hr>
-    <ul>
-      <li><img src="../../assets/img/blog.png"></li>
-      <li><img src="../../assets/img/sign.png"></li>
-      <li><img src="../../assets/img/setting.png"></li>
+  <div class="sidebar">
+
+    <img class="avatar" src="../../assets/img/avatar2.jpg">
+
+    <ul class="nav">
+      <li><a class="nav-button" href="#" title="博客"><i class='icon-wenzhang iconfont'></i></a></li>
+      <li><a class="nav-button" href="#"><i class='icon-tag1 iconfont'></i></a></li>
+      <li><a class="nav-button" href="#"><i class='icon-wo iconfont'></i></a></li>
     </ul>
-    <hr>
-    <div class="logout-panel">
-      <img src="../../assets/img/logout.png"></div>
+    <ul class="logout">
+      <li><a class="nav-button" href="#"><i class='icon-tuichu iconfont'></i></a></li>
+    </ul>
   </div>
 </template>
 <script>
-export default{
-  name:"sidebar",
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
+  export default{
+    name: "sidebar",
   }
-}
 </script>
 <style scoped>
-.sidebar{
-  position: relative;
-  background-color: #ffffff;
-  width:100px;
-  height:100%;
-}
-.avatar>img{
-  width: 60px;
-  height: 60px;
-  margin: 30px auto;
-  border-radius: 60px;
-  border: 2px solid #58B7FF
-}
-hr{
-  width: 80px;
-  margin: 0 auto;
-  border:none;
-  border-top:1px dotted #58B7FF;
-}
-img{
-  margin-bottom: 60px;
-  width: 50px;
-  height: 50px;
-}
-ul{
-  display: inline-block;
-  margin-top:50px
-}
-.logout-panel{
-  margin-top:60px;
-  text-align: center;
-  width: 100%;
-}
-.logout-panel>img{
-  margin:0 auto;
-  width: 40px;
-  height: 40px
-}
+  .sidebar {
+    position: fixed;
+    background-color: #f8f8f8;
+    width: 80px;
+    height: 100%;
+    text-align: center;
+    padding: 0px 12px 0px 12px;
+    border-right: 1px solid #ececec;
+    left: 0;
+    top: 0;
+  }
+
+  .avatar {
+    margin-top: 15px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid #bbb;
+    box-shadow: 3px 3px 3px #aaa;
+  }
+
+  .nav {
+    border-top: 1px solid #ececec;
+    width: 80%;
+    margin-top: 30px;
+    text-align: center;
+    display: inline-block;
+  }
+
+  .nav > li {
+    /*margin-top: 30px;*/
+    padding: 20px 0;
+  }
+  .logout{
+    width: 80%;
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    display: block;
+  }
+  .logout>li{
+    padding: 20px 0;
+  }
+  .nav-button {
+    text-align: center;
+    display: inline-block;
+    color: #42b983;
+    background-color: #fff;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ececec;
+    border-radius: 50%;
+    line-height: 50px;
+    box-sizing: border-box;
+    box-shadow: 5px 5px 3px #aaa;
+
+  }
+
+  .nav-button:active {
+    border: 1px solid #42b983;
+  }
+
+  .nav-button:hover {
+    color: #fff;
+    background-color: #42b983;
+    border: 1px solid #42b983;
+  }
+
+  .iconfont {
+    font-size: 22px;
+  }
 </style>
