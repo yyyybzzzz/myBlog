@@ -1,7 +1,7 @@
 <template>
   <div style="height: 100%;overflow: hidden">
     <div class="article-"></div>
-    <mavon-editor class="mavon-editor"></mavon-editor>
+    <mavon-editor class="mavon-editor" v-model="value"></mavon-editor>
   </div>
 </template>
 <style scoped>
@@ -17,9 +17,14 @@
     name: 'editor',
     components: {
       mavonEditor
-    }, mounted(){
+    }, data(){
+      return {
+        value: ""
+      }
+    },
+    mounted(){
       this.$parent.$on("a-select", (data) => {
-        //alert(data["title"])
+        this.value=data['content']
       })
     },
     methods: {}

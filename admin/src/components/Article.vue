@@ -20,7 +20,7 @@
   .article-list {
     float: left;
     background-color: #fff;
-    border-right: 1px solid #ececec;
+    border-right: 1px solid #bcbcbc;
     width: 300px;
     height: 100%;
     overflow-y: auto;
@@ -43,6 +43,7 @@
   }
 
   .article-edit {
+    margin-left:3px ;
     height: 100%;
     overflow: auto;
   }

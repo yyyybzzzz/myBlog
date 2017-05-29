@@ -35,7 +35,7 @@
     height: 100%;
     text-align: center;
     /*padding: 0px 12px 0px 12px;*/
-    border-right: 1px solid #ececec;
+    border-right: 1px solid #cccccc;
     left: 0;
     top: 0;
   }
