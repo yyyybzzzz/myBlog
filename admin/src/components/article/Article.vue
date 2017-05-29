@@ -49,9 +49,9 @@
   }
 </style>
 <script>
-  import SideBar from './common/SideBar.vue'
-  import ArticleList from './common/ArticleList.vue'
-  import Editor from './common/Editor.vue'
+  import SideBar from '../common/SideBar.vue'
+  import ArticleList from './ArticleList.vue'
+  import Editor from './Editor.vue'
 
   export default{
     components: {

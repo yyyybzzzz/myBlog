@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Article from '@/components/Article'
-import Tag from '@/components/Tag'
-import Login from '@/components/Login'
-import Me from '@/components/Me'
+import Article from '@/components/article/Article'
+import Tag from '@/components/tag/Tag'
+import Login from '@/components/login/Login'
+import Me from '@/components/me/Me'
 
 Vue.use(Router)
 

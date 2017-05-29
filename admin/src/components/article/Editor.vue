@@ -23,8 +23,9 @@
       }
     },
     mounted(){
-      this.$parent.$on("a-select", (data) => {
-        this.value=data['content']
+      //监听articleList组件发送的选择事件
+      this.$bus.$on("a-select", (data) => {
+        this.value = data['content']
       })
     },
     methods: {}

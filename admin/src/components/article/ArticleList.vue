@@ -99,7 +99,7 @@
     data: () => ({
       active_item: 0,
       aList: [{
-        title: "垂直居中的深入探讨122345566666666",
+        "title": "垂直居中的深入探讨122345566666666",
         time: "2016-09-26 19:30:20",
         content: "这样一个路由链接，我已经点击进去，现在的路由就是这个，浏览器url 就是localhost：4000/query 但是，我再次点击这个查询首页 链接， 当前页面不会从新加载，我想重新初始化组件",
         active: true
@@ -121,7 +121,7 @@
       }]
     }),
     created: function () {
-      //this.$parent.$emit("a-select", this.aList[0])
+      this.$bus.$emit("a-select", this.aList[0])
     },
     methods: {
       articleSelect(index){
@@ -129,7 +129,8 @@
           this.aList[index]['active'] = true;
           this.aList[this.active_item]['active'] = false;
           this.active_item = index;
-          this.$parent.$emit("a-select", this.aList[index])
+          //发送选择事件 在editor组件中监听事件
+          this.$bus.$emit("a-select", this.aList[index])
         }
       }
     }

@@ -3,8 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Vuebus from 'vue-bus'
 
 Vue.config.productionTip = false
+Vue.use(Vuebus)
 
 /* eslint-disable no-new */
 new Vue({
