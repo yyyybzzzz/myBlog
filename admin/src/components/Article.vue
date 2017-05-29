@@ -42,7 +42,7 @@
     font-size: 22px;
   }
 
-  .article-edit{
+  .article-edit {
     height: 100%;
     /*padding: 10px;*/
     overflow: auto;
@@ -55,7 +55,7 @@
 
   export default{
     components: {
-      SideBar, ArticleList,Editor
+      SideBar, ArticleList, Editor
     }
   }
 

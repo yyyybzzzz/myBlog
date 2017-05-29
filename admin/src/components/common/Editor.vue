@@ -21,7 +21,12 @@
     name: 'editor',
     components: {
       mavonEditor
-    }
+    }, mounted(){
+        this.$parent.$on("a-select",(data)=>{
+            alert(data["title"])
+        })
+    },
+    methods: {}
   }
 
 </script>
