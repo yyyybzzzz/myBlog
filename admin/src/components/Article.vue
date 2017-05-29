@@ -44,7 +44,6 @@
 
   .article-edit {
     height: 100%;
-    /*padding: 10px;*/
     overflow: auto;
   }
 </style>

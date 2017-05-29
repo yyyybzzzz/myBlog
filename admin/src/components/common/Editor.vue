@@ -1,16 +1,12 @@
 <template>
-  <div style="height: 100%">
-    <div class="article-title"></div>
+  <div style="height: 100%;overflow: hidden">
     <div class="article-"></div>
-    <mavon-editor style="height: 70%"></mavon-editor>
-
+    <mavon-editor class="mavon-editor"></mavon-editor>
   </div>
 </template>
 <style scoped>
-  .article-title {
-    width: 100%;
-    height: 65px;
-    border-bottom: 1px solid #ececec;
+  .mavon-editor {
+    height: 100%;
   }
 </style>
 <script>
@@ -22,9 +18,9 @@
     components: {
       mavonEditor
     }, mounted(){
-        this.$parent.$on("a-select",(data)=>{
-            alert(data["title"])
-        })
+      this.$parent.$on("a-select", (data) => {
+        //alert(data["title"])
+      })
     },
     methods: {}
   }
