@@ -1,11 +1,11 @@
 <template>
   <div class="article">
     <side-bar></side-bar>
-      <section class="article-list" transition="fade">
-        <h3 class="page-title"><i class="icon-wenzhang iconfont"></i> 文章列表
-          <i class="iconfont icon-jiahao article-add"></i></h3>
-        <article-list></article-list>
-      </section>
+    <section class="article-list">
+      <h3 class="page-title"><i class="icon-wenzhang iconfont"></i> 文章列表
+        <i class="iconfont icon-jiahao article-add" @click="open"></i></h3>
+      <article-list></article-list>
+    </section>
     <div class="article-edit">
       <editor></editor>
     </div>
@@ -52,10 +52,24 @@
   import SideBar from '../common/SideBar.vue'
   import ArticleList from './ArticleList.vue'
   import Editor from './Editor.vue'
+  import {MessageBox} from 'element-ui'
 
   export default{
     components: {
       SideBar, ArticleList, Editor
+    },
+    methods: {
+      open() {
+        MessageBox.alert('这是一段内容', '标题名称', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.message({
+              type: 'info',
+              message: `action: ${ action }`
+            });
+          }
+        });
+      }
     }
   }
 

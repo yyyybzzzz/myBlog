@@ -93,7 +93,7 @@
     color: #42b983;
     overflow: hidden;
   }
-  
+
 </style>
 <script>
   export default{
