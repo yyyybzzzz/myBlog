@@ -9,15 +9,11 @@
 </template>
 
 <script>
-  import { MessageBox } from 'element-ui'
-  import 'element-ui/lib/theme-default/index.css'
   export default {
     name: 'app',
     mounted(){
     },
-    methods:{
-
-    }
+    methods: {}
   }
 </script>
 
