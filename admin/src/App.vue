@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <router-view
-      transition="fade"
-      transition-mode="out-in">>
+    <transition name="fade">
+      <router-view>
 
-    </router-view>
+      </router-view>
+    </transition>
   </div>
 </template>
 
@@ -15,14 +15,6 @@
 </script>
 
 <style>
-  .fade-transition {
-    transition: opacity .2s ease
-  }
-
-  .fade-enter, .fade-leave {
-    opacity: 0;
-  }
-
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -45,5 +37,13 @@
 
   a {
     text-decoration: none;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+  }
+
+  .fade-enter, .fade-leave-active {
+    opacity: 0;
   }
 </style>

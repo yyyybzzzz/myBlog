@@ -1,11 +1,11 @@
 <template>
   <div class="article">
     <side-bar></side-bar>
-    <section class="article-list">
-      <h3 class="page-title"><i class="icon-wenzhang iconfont"></i> 文章列表
-        <i class="iconfont icon-jiahao article-add"></i></h3>
-      <article-list></article-list>
-    </section>
+      <section class="article-list" transition="fade">
+        <h3 class="page-title"><i class="icon-wenzhang iconfont"></i> 文章列表
+          <i class="iconfont icon-jiahao article-add"></i></h3>
+        <article-list></article-list>
+      </section>
     <div class="article-edit">
       <editor></editor>
     </div>
@@ -43,7 +43,7 @@
   }
 
   .article-edit {
-    margin-left:3px ;
+    margin-left: 3px;
     height: 100%;
     overflow: auto;
   }
