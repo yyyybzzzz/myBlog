@@ -3,13 +3,19 @@
     <side-bar></side-bar>
     <section class="article-list">
       <h3 class="page-title"><i class="icon-wenzhang iconfont"></i> 文章列表
-        <i class="iconfont icon-jiahao article-add" @click="open"></i></h3>
-      <article-list :aList="aList"></article-list>
+        <i v-show="!writing" class="iconfont icon-jiahao article-add"
+        @click="dialogVisible=true"></i>
+        <i v-show="writing" class="iconfont icon-shangchuan article-add"
+        style="color:#42b983" @click="dialogVisible=true"></i>
+      </h3>
+      <article-list></article-list>
     </section>
     <div class="article-edit">
       <editor></editor>
     </div>
+
   </div>
+
 </template>
 <style scoped>
   .article {
@@ -58,28 +64,12 @@
     components: {
       SideBar, ArticleList, Editor
     },
-    data(){
-      return {
-        aList: ""
-      }
-    },
-    mounted(){
-      this.$bus.$on("aList", () => {
-        this.aList = this.$bus.data.aList
-      })
-    },
-    created: function () {
-      this.$bus.data.currentId = 0 //每次创建都将当前选中 置为0
-      ArticleService.getArtcles('../static/data/articles.json')
-    },
-    methods: {
-      open() {
-        MsgBox.alert("标题名称", '这是一段内容', (action) => {
-          this.$message({
-            type: 'info',
-            message: `action: ${ action }`
-          });
-        })
+    computed: {
+      publishing(){
+          return this.$store.state.publishing
+      },
+      writing(){
+        return this.$store.state.writing
       }
     }
   }

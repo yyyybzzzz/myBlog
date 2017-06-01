@@ -19,22 +19,23 @@
       mavonEditor
     },
     data(){
-      return {
-        value: ""
-      }
+        return{
+            value:""
+        }
     },
     mounted(){
-
-      //监听articleList组件发送的选择事件
-      this.$bus.$on("a-select", (data) => {
-        this.value = data['content']
-      });
+        this.$parent.$on("a-select",(index)=>{
+            this.value=this.$store.state.aList[index]['content'];
+        })
     },
+
     watch: {
       value(val){
+        console.log("zyb")
         //当内容改变时 修改当前的全局状态为正在写
-        this.$bus.data.writing = !(val==this.$bus.data.aList[this.$bus.data.currentId]['content'])
-        console.log(this.$bus.data.writing)
+        this.$store.state.writing = !(val == this.$store.state.aList[this.$store.state.currentId]['content'])
+        console.log(this.$store.state.writing)
+        //console.log(this.$bus.data.writing)
       }
     },
   }

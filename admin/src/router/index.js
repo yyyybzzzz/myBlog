@@ -8,7 +8,6 @@ import MsgBox from '../utils/MsgBox.js'
 
 Vue.use(Router)
 
-var b = new Vue();
 const router = new Router({
   routes: [
     {
@@ -33,11 +32,17 @@ const router = new Router({
 })
 router.beforeEach((to, from, next) => {
   if (from.name == 'article') {
-    if (b.$bus.data.writing) {
-      MsgBox.alert("zyb",'zyb',(action)=>{
+    var vue = this.a.app
+    //console.log(123)
+    if (vue.$store.state.writing | vue.$store.state.publishing) {
+      MsgBox.alert("zyb", 'zyb', (action) => {
         MsgBox.message(action)
+        if (action == 'confirm') {
+          vue.$store.state.publishing = false;
+          vue.$store.state.writing = false;
+        }
       })
-    }else{
+    } else {
       next()
     }
   }

@@ -12,5 +12,11 @@ export default {
   },
   message(msg){
     vue.$message(msg)
+  },
+  msgbox(){
+    vue.$msgbox({
+      title:"添加文章",
+      message:h()
+    });
   }
 }
