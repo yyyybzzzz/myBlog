@@ -17,18 +17,26 @@
     name: 'editor',
     components: {
       mavonEditor
-    }, data(){
+    },
+    data(){
       return {
         value: ""
       }
     },
     mounted(){
+
       //监听articleList组件发送的选择事件
       this.$bus.$on("a-select", (data) => {
         this.value = data['content']
-      })
+      });
     },
-    methods: {}
+    watch: {
+      value(val){
+        //当内容改变时 修改当前的全局状态为正在写
+        this.$bus.data.writing = !(val==this.$bus.data.aList[this.$bus.data.currentId]['content'])
+        console.log(this.$bus.data.writing)
+      }
+    },
   }
 
 </script>

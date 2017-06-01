@@ -2,7 +2,6 @@
   <div id="app">
     <transition name="fade">
       <router-view>
-
       </router-view>
     </transition>
   </div>
@@ -11,8 +10,6 @@
 <script>
   export default {
     name: 'app',
-    mounted(){
-    },
     methods: {}
   }
 </script>

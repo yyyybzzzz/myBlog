@@ -97,21 +97,27 @@
 </style>
 <script>
   export default{
-    data: () => ({
-      active_item: 0,
-      aList: ''
-    }),
+    data(){
+      return {
+        active_item: 0,
+      }
+    },
+    props: ['aList'],
+    watch: {
+      aList(val){
+        this.aList = val;
+      }
+    },
     created: function () {
-      fetch('../../static/data/articles.json').then(res => res.json()).then(data => {
-        this.aList = data;
-        this.$bus.$emit("a-select", this.aList[0])
-      })
+      this.active_item = this.$bus.data.currentId;
     },
     methods: {
       articleSelect(index){
         if (index != this.active_item) {
           this.aList[index]['active'] = true;
           this.aList[this.active_item]['active'] = false;
+          //console.log(this.$bus.data.aList)
+          this.$bus.data.currentId = index;
           this.active_item = index;
           //发送选择事件 在editor组件中监听事件
           this.$bus.$emit("a-select", this.aList[index])
@@ -119,4 +125,5 @@
       }
     }
   }
+
 </script>

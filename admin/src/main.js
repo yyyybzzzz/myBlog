@@ -12,10 +12,21 @@ Vue.config.productionTip = false
 Vue.use(Vuebus)
 Vue.use(ElementUI)
 
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   template: '<App/>',
   router,
-  components:{App}
+  components: {App},
+  created: function () {//初始化全局变量
+    var data = {
+      aList: "",
+      currentId: 0,
+      writing: false,
+      publishing: false
+    };
+    //console.log(bus)
+    this.$bus.data = data;
+  }
 })

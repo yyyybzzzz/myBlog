@@ -4,7 +4,7 @@
     <section class="article-list">
       <h3 class="page-title"><i class="icon-wenzhang iconfont"></i> 文章列表
         <i class="iconfont icon-jiahao article-add" @click="open"></i></h3>
-      <article-list></article-list>
+      <article-list :aList="aList"></article-list>
     </section>
     <div class="article-edit">
       <editor></editor>
@@ -52,22 +52,34 @@
   import SideBar from '../common/SideBar.vue'
   import ArticleList from './ArticleList.vue'
   import Editor from './Editor.vue'
-
+  import ArticleService from '../../service/ArticleService.js'
+  import MsgBox from '../../utils/MsgBox.js'
   export default{
     components: {
       SideBar, ArticleList, Editor
     },
+    data(){
+      return {
+        aList: ""
+      }
+    },
+    mounted(){
+      this.$bus.$on("aList", () => {
+        this.aList = this.$bus.data.aList
+      })
+    },
+    created: function () {
+      this.$bus.data.currentId = 0 //每次创建都将当前选中 置为0
+      ArticleService.getArtcles('../static/data/articles.json')
+    },
     methods: {
       open() {
-        this.$alert('这是一段内容', '标题名称', {
-          confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            });
-          }
-        });
+        MsgBox.alert("标题名称", '这是一段内容', (action) => {
+          this.$message({
+            type: 'info',
+            message: `action: ${ action }`
+          });
+        })
       }
     }
   }
