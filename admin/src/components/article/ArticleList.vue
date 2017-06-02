@@ -96,24 +96,18 @@
 
 </style>
 <script>
+  import {mapGetters} from 'vuex'
   export default{
     computed: {
-      aList(){
-        return this.$store.state.aList
-      },
-      currentId(){
-        return this.$store.state.currentId
-      }
+      ...mapGetters({
+        aList: 'aList',
+        currentId: 'currentId'
+      })
     },
     methods: {
       articleSelect(index){
         if (index != this.currentId) {
-          this.aList[index]['active'] = true;
-          this.aList[this.currentId]['active'] = false;
-
-          this.$store.state.currentId = index;
-
-          this.$parent.$emit("a-select", this.$store.state.currentId)
+         this.$store.commit('articleSelect', index)
         }
       }
     }

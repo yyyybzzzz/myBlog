@@ -6,11 +6,13 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import store from './vuex/store.js'
+import VueBus from 'vue-bus'
 
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
+Vue.use(VueBus)
 
 
 /* eslint-disable no-new */
