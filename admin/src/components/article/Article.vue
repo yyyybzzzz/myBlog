@@ -82,7 +82,7 @@
         loading: false
       }
     },
-    created: function () {
+    mounted:function(){
       this.$store.dispatch('getArticles')
     },
     computed: {
@@ -95,17 +95,13 @@
     },
     methods: {
       handleClose(done) {
-        //this.loading = true
         console.log("123")
         done();
 
       },
       createArticle(){
         this.loading = true
-        setTimeout(() => {
-          this.loading = false;
-          this.dialogVisible = false
-        }, 3000)
+        this.$store.dispatch('addArticle',this)
       }
     }
   }

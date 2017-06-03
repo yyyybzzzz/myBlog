@@ -4,6 +4,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import MsgBox from '../utils/MsgBox'
+import Http from '../utils/HttpUtil'
 
 Vue.use(Vuex)
 var vue = new Vue();
@@ -14,7 +15,8 @@ export default new Vuex.Store({
     publishing: false,
     writing: false,
     currentId: 0,
-    newContent: ""
+    newContent: "",
+    host: 'http://localhost:3000'
   },
   getters: {
     aList(state){
@@ -53,11 +55,22 @@ export default new Vuex.Store({
         state.newContent = data[0]['content']
         vue.$bus.$emit("a-select", state.currentId)
       })
+    },
+    addArticle(state, vue){
+      var param = {title: vue.title}
+      Http.post(state.host + '/addArticle', param).then(res => res.json()).then(data => {
+        vue.loading = false;
+        vue.dialogVisible = false
+      }).catch(err => {
+      })
     }
   },
   actions: {
     getArticles(context){
       context.commit('getArticles')
+    },
+    addArticle(context, vue){
+      context.commit('addArticle', vue)
     }
 
   }
