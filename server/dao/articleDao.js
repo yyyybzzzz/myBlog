@@ -30,12 +30,12 @@ module.exports = {
         })
 
     },
-    updateArticle: function (article) {
+    updateArticle: function (article,success) {
         var connection = mysql.createConnection(db.mysql);
-        var values = [article.a_id, article.title, article.tag, article.type, article.content, article.time, 0]
-        connection.query($sql.queryAll, values, function (err, result) {
+        var values = [article.title, article.tag,  article.content,article.type,  article.a_id]
+        connection.query($sql.update, values, function (err, result) {
             if (err) throw err
-            console.log(result)
+            success(result)
         })
         connection.end()
     }

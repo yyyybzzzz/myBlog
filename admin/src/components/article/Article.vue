@@ -2,10 +2,11 @@
   <div class="article">
     <side-bar></side-bar>
     <section class="article-list">
+
       <h3 class="page-title"><i class="icon-wenzhang iconfont"></i> 文章列表
-        <i v-show="writing" class="iconfont  icon-shangchuan  article-add" style="color:#42b983"
-           @click="dialogVisible=true"></i>
-        <i v-show="!writing" class="iconfont icon-jiahao article-add" @click="dialogVisible=true"></i>
+        <i v-show="writing|publishing" class="iconfont  icon-shangchuan  article-add" style="color:#42b983"
+           @click="publishVisible=true"></i>
+        <i v-show="!(writing|publishing)" class="iconfont icon-jiahao article-add" @click="addVisible=true"></i>
       </h3>
       <article-list></article-list>
     </section>
@@ -14,17 +15,29 @@
     </div>
     <el-dialog
       :show-close="false"
-      title="添加文章"
-      :visible.sync="dialogVisible"
+      title="新建文章"
+      :visible.sync="addVisible"
       size="tiny"
       :before-close="handleClose">
-      <!--<span>添加文章</span>-->
-      <el-input v-model="title" placeholder="输入文章标题"></el-input>
+      <el-input v-model="title" :disabled="disabled" placeholder="请输入文章标题"></el-input>
       <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="createArticle()" :loading="loading">创 建</el-button>
+    <el-button @click="addVisible=false" :disabled="disabled">取消</el-button>
+    <el-button type="primary" @click="createArticle" :loading="loading" :disabled="disabled">发 布</el-button>
   </span>
     </el-dialog>
+    <el-dialog
+      :show-close="false"
+      title="发布文章"
+      :visible.sync="publishVisible"
+      size="tiny"
+      :before-close="handleClose">
+      <span>文章已更改，是否发布文章？</span>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="publishArticle(0)" :loading="loading1" :disabled="disabled">保存为草稿</el-button>
+    <el-button type="primary" @click="publishArticle(1)" :loading="loading" :disabled="disabled">发 布</el-button>
+  </span>
+    </el-dialog>
+
 
   </div>
 
@@ -72,17 +85,22 @@
   import Editor from './Editor.vue'
   import MsgBox from '../../utils/MsgBox.js'
   import {mapGetters} from 'vuex'
+  import ElInput from "../../../node_modules/element-ui/packages/input/src/input";
   export default{
     components: {
+      ElInput,
       SideBar, ArticleList, Editor
     }, data(){
       return {
-        dialogVisible: false,
+        addVisible: false,
         title: "",
-        loading: false
+        loading: false,
+        loading1: false,
+        publishVisible: false,
+        disabled: false
       }
     },
-    mounted:function(){
+    mounted: function () {
       this.$store.dispatch('getArticles')
     },
     computed: {
@@ -95,12 +113,26 @@
     },
     methods: {
       handleClose(done) {
+        console.log("here")
+        this.disabled = false
+        this.loading = false
+        this.loading1 = false
         done();
 
       },
       createArticle(){
+        this.disabled = true
         this.loading = true
-        this.$store.dispatch('addArticle',this)
+        this.$store.dispatch('addArticle', this)
+      },
+      publishArticle(type){
+        this.disabled = true
+        if (type == 0) {
+          this.loading1 = true;
+        } else {
+          this.loading = true;
+        }
+        this.$store.dispatch('publishArticle', {vue: this, type: type})
       }
     }
   }

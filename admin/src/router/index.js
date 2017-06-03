@@ -33,8 +33,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (from.name == 'article') {
     var vue = this.a.app
-    //console.log(123)
-    if (vue.$store.state.writing | vue.$store.state.publishing) {
+    if (vue.$store.state.writing) {
       MsgBox.alert("zyb", 'zyb', (action) => {
         MsgBox.message(action)
         if (action == 'confirm') {
@@ -43,6 +42,7 @@ router.beforeEach((to, from, next) => {
         }
       })
     } else {
+      vue.$store.state.currentId = 0
       next()
     }
   }

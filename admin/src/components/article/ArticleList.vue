@@ -1,20 +1,21 @@
 <template>
-  <ul class="list">
-    <li class="list-item" v-for="(article,index) in aList" v-on:click="articleSelect(index)">
-      <article class="article-item" :class="{'active':article['active']}">
-        <div><h3 class="article-title">{{article['title']}}</h3>
-          <h3 class="icon-shanchu iconfont"></h3>
-          <h3 class="icon-xiugai iconfont"></h3>
-        </div>
-        <h6 class="article-time">{{article['time'] | formatTime}}</h6>
-        <p class="article-content" v-text="article['content']"></p>
-      </article>
-    </li>
-  </ul>
+    <ul class="list">
+      <li class="list-item" v-for="(article,index) in aList" v-on:click="articleSelect(index)">
+        <article class="article-item" :class="{'active':article['active']}">
+          <div><h3 class="article-title">{{article['title']}}</h3>
+            <h3 class="icon-shanchu iconfont"></h3>
+            <h3 class="icon-xiugai iconfont"></h3>
+          </div>
+          <h6 class="article-time">{{article['time'] | formatTime}}</h6>
+          <p class="article-content" v-text="article['content']"></p>
+        </article>
+      </li>
+    </ul>
 </template>
 <style scoped>
   .list {
     border-top: 1px solid #dcdcdc;
+    /*margin-top: 60px;*/
   }
 
   .list-item {
@@ -112,9 +113,9 @@
       }
     },
     filters: {
-        formatTime(time){
-            return new Date(parseInt(time)).toLocaleString().replace(/:\d{1,2}$/,' ');
-        }
+      formatTime(time){
+        return new Date(parseInt(time)).toLocaleString().replace(/:\d{1,2}$/, ' ');
+      }
     }
   }
 

@@ -1,7 +1,6 @@
 <template>
   <div>
     <side-bar></side-bar>
-    <p>Me</p>
   </div>
 </template>
 <script>

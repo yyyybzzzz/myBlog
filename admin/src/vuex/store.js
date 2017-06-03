@@ -11,15 +11,19 @@ var vue = new Vue();
 
 //抽离文章选择函数
 function articleSelect(state, index) {
-  if (state.writing | state.publishing) {
+  if (state.writing) {
     MsgBox.alert("测试", "测试", () => {
       console.log(state.newContent)
     })
   } else {
+    state.publishing = (state.aList[index]['type'] == 0)
     state.aList[index]['active'] = true;
-    state.aList[state.currentId]['active'] = false;
+    if (state.aList.length != 1) {
+      state.aList[state.currentId]['active'] = false;
+      state.currentId = index;
+      state.newContent = state.aList[index]['content']
+    }
     state.currentId = index;
-    state.newContent = state.aList[index]['content']
     vue.$bus.$emit("a-select", index)
   }
 }
@@ -57,15 +61,19 @@ export default new Vuex.Store({
     },
     //获取文章列表
     getArticles(state){
-      Http.get(state.host + '/getArticles').then(res=>res.json()).then(data=>{
-        if(data.code==0){
-          for (var i in data.data){
-            data.data[i]['active']=false
+      Http.get(state.host + '/getArticles').then(res => res.json()).then(data => {
+        if (data.code == 0) {
+          for (var i in data.data) {
+            data.data[i]['active'] = false
           }
           state.aList = data.data
-          state.newContent = data.data[0]['content']
-          data.data[0]['active']=true
-          vue.$bus.$emit("a-select", state.currentId)
+          if (state.aList.length != 0) {
+            //判断当前文章是否已发布 或是草稿
+            state.publishing = (state.aList[0]['type'] == 0)
+            state.newContent = data.data[0]['content']
+            data.data[0]['active'] = true
+            vue.$bus.$emit("a-select", state.currentId)
+          }
         }
       })
     },
@@ -74,7 +82,8 @@ export default new Vuex.Store({
       var param = {title: vue.title}
       Http.post(state.host + '/addArticle', param).then(res => res.json()).then(data => {
         vue.loading = false;
-        vue.dialogVisible = false
+        vue.addVisible = false
+        vue.disabled = false
         if (data.code == 0) {
           MsgBox.message('success', '创建博客成功')
           //将创建好的博客加入aList
@@ -89,7 +98,25 @@ export default new Vuex.Store({
         console.log(err)
         MsgBox.message('error', '网络发生错误')
         vue.loading = false;
-        vue.dialogVisible = false
+        vue.addVisible = false
+      })
+    },
+    //发布博客
+    publishArticle(state, payload){
+
+      state.aList[state.currentId]['type'] = payload.type
+      state.aList[state.currentId]['content'] = state.newContent
+      var param = state.aList[state.currentId]
+      Http.post(state.host + "/publishArticle", param).then(res => {
+        payload.vue.publishVisible = false
+        payload.vue.disabled = false
+        payload.vue.loading = false
+        payload.vue.loading1 = false
+        state.writing = false
+        state.publishing = false
+
+      }).catch(function (err) {
+        console.log(err)
       })
     }
   },
@@ -99,6 +126,10 @@ export default new Vuex.Store({
     },
     addArticle(context, vue){
       context.commit('addArticle', vue)
+    },
+    publishArticle(context, payload){
+      console.log(vue)
+      context.commit('publishArticle', payload)
     }
   }
 })

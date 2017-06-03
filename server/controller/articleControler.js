@@ -4,6 +4,7 @@ var util = require('../utils/util')
 module.exports.init = function (router) {
     router.post('/addArticle', addArticle);
     router.get('/getArticles',getArticles)
+    router.post('/publishArticle', publishArticle);
 }
 
 function addArticle(req, res, next) {
@@ -35,5 +36,13 @@ function getArticles(req,res,next) {
             data:data
         }
         res.end(JSON.stringify(result))
+    })
+}
+
+function publishArticle(req,res,next) {
+    console.log(req.body)
+    articleDao.updateArticle(req.body,function (data) {
+        console.log(data)
+        res.end('123')
     })
 }
