@@ -14,6 +14,7 @@
     "mavon-editor": "^1.6.2",
     "simplemde": "^1.11.2",
     "vue": "^2.3.3",
+    "vue-bus": "^1.0.0",
     "vue-router": "^2.3.1"
   },
   "devDependencies": {
