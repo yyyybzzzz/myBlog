@@ -3,22 +3,37 @@ var util = require('../utils/util')
 
 module.exports.init = function (router) {
     router.post('/addArticle', addArticle);
+    router.get('/getArticles',getArticles)
 }
 
 function addArticle(req, res, next) {
-    console.log(util.getUUID())
     var article = {
-        a_id:util.getUUID(),
-        title:req.body.title,
-        type:0,
-        tag:'code',
-        content:' ',
-        time:util.getTime(),
-        visit:0
+        'a_id':util.getUUID(),
+        'title':req.body.title,
+        'type':0,
+        'tag':'code',
+        'content':' ',
+        'time':util.getTime(),
+        'visit':0
 
     }
     articleDao.addArticle(article)
-    console.log(article)
-    var r = {'zyb': '123'}
-    res.end(JSON.stringify(r))
+    var result={
+        code:0,
+        data:article,
+        msg:''
+    }
+
+    res.end(JSON.stringify(result))
+}
+function getArticles(req,res,next) {
+    articleDao.getArticles(function (data) {
+        //console.log(data)
+        var result={
+            code:0,
+            msg:'',
+            data:data
+        }
+        res.end(JSON.stringify(result))
+    })
 }

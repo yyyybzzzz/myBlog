@@ -20,12 +20,13 @@ module.exports = {
         })
         connection.end()
     },
-    getArticles: function () {
+    getArticles: function (success) {
         var connection = mysql.createConnection(db.mysql);
         connection.query($sql.queryAll, function (err, result) {
             if (err) throw err
+            else
+                success(result)
             connection.end()
-            console.log(result)
         })
 
     },

@@ -3,6 +3,6 @@ var sql = {
     update: 'update article set title=?,tag=?,content=?,type=? where a_id=?',
     delete: 'delete from article where a_id=?',
     queryByid: 'select * from article where a_id=?',
-    queryAll: 'select * from article'
+    queryAll: 'select * from article order by time desc'
 }
 module.exports = sql

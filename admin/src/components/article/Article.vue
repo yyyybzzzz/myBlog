@@ -95,7 +95,6 @@
     },
     methods: {
       handleClose(done) {
-        console.log("123")
         done();
 
       },

@@ -6,7 +6,7 @@
           <h3 class="icon-shanchu iconfont"></h3>
           <h3 class="icon-xiugai iconfont"></h3>
         </div>
-        <h6 class="article-time">{{article['time']}}</h6>
+        <h6 class="article-time">{{article['time'] | formatTime}}</h6>
         <p class="article-content" v-text="article['content']"></p>
       </article>
     </li>
@@ -107,9 +107,14 @@
     methods: {
       articleSelect(index){
         if (index != this.currentId) {
-         this.$store.commit('articleSelect', index)
+          this.$store.commit('articleSelect', index)
         }
       }
+    },
+    filters: {
+        formatTime(time){
+            return new Date(parseInt(time)).toLocaleString().replace(/:\d{1,2}$/,' ');
+        }
     }
   }
 

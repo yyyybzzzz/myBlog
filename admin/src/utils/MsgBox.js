@@ -10,13 +10,16 @@ export default {
       callback: callback
     });
   },
-  message(msg){
-    vue.$message(msg)
+  message(type, msg){
+    vue.$message({
+      type: type,
+      message: msg
+    })
   },
   msgbox(){
     vue.$msgbox({
-      title:"添加文章",
-      message:h()
+      title: "添加文章",
+      message: h()
     });
   }
 }
