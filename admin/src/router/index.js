@@ -11,28 +11,46 @@ Vue.use(Router)
 const router = new Router({
   routes: [
     {
-      path: '/login',
+      path: '/',
       name: 'login',
       component: Login,
-      authPage: true
     }, {
       path: '/article',
       name: 'article',
-      component: Article
+      component: Article,
+      meta: {
+        authPage: true
+      }
     }, {
       path: '/tag',
       name: 'tag',
-      component: Tag
+      component: Tag,
+      meta: {
+        authPage: true
+      }
     }, {
       path: '/me',
       name: 'me',
-      component: Me
+      component: Me,
+      meta: {
+        authPage: true
+      }
     }
   ]
 })
 router.beforeEach((to, from, next) => {
+  var vue = this.a.app
+  if (to.meta.authPage) {
+    if (from.name == null) {
+      next({path: '/'})
+      return
+    }//直接从网址栏输入
+    if (vue.$store.state.token == '') {
+      next({path: '/'})
+      return
+    }
+  }
   if (from.name == 'article') {
-    var vue = this.a.app
     if (vue.$store.state.writing) {
       MsgBox.alert("zyb", 'zyb', (action) => {
         MsgBox.message(action)
@@ -45,9 +63,7 @@ router.beforeEach((to, from, next) => {
       vue.$store.state.currentId = 0
       next()
     }
-  }
-  else {
+  } else
     next()
-  }
 })
 export  default router

@@ -22,7 +22,7 @@
       <el-input v-model="title" :disabled="disabled" placeholder="请输入文章标题"></el-input>
       <span slot="footer" class="dialog-footer">
     <el-button @click="addVisible=false" :disabled="disabled">取消</el-button>
-    <el-button type="primary" @click="createArticle" :loading="loading" :disabled="disabled">发 布</el-button>
+    <el-button type="primary" @click="createArticle" :loading="loading" :disabled="disabled">创 建</el-button>
   </span>
     </el-dialog>
     <el-dialog

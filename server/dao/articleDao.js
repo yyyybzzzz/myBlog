@@ -38,5 +38,13 @@ module.exports = {
             success(result)
         })
         connection.end()
+    },
+    deleteArticle:function (id,success) {
+        var connection = mysql.createConnection(db.mysql);
+        connection.query($sql.delete, [id], function (err, result) {
+            if (err) throw err
+            success(result)
+        })
+        connection.end()
     }
 }

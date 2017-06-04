@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <transition name="fade">
+    <transition  name="fade">
       <router-view>
       </router-view>
     </transition>
@@ -21,6 +21,7 @@
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
     height: 100%;
+    overflow: hidden;
   }
 
   html, body {

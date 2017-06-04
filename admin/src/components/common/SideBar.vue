@@ -17,14 +17,20 @@
       </li>
     </ul>
     <ul class="logout">
-      <li><a class="nav-button" href="#"><i class='icon-tuichu iconfont'></i></a></li>
+      <li><a class="nav-button" @click="logout"><i class='icon-tuichu iconfont'></i></a></li>
     </ul>
   </div>
+
 </template>
 
 <script>
   export default{
     name: "SideBar",
+    methods: {
+      logout(){
+        this.$store.dispatch('logout', this)
+      }
+    }
   }
 </script>
 <style scoped>

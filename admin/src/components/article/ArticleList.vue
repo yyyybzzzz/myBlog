@@ -1,16 +1,16 @@
 <template>
-    <ul class="list">
-      <li class="list-item" v-for="(article,index) in aList" v-on:click="articleSelect(index)">
-        <article class="article-item" :class="{'active':article['active']}">
-          <div><h3 class="article-title">{{article['title']}}</h3>
-            <h3 class="icon-shanchu iconfont"></h3>
-            <h3 class="icon-xiugai iconfont"></h3>
-          </div>
-          <h6 class="article-time">{{article['time'] | formatTime}}</h6>
-          <p class="article-content" v-text="article['content']"></p>
-        </article>
-      </li>
-    </ul>
+  <ul class="list">
+    <li class="list-item" v-for="(article,index) in aList" v-on:click="articleSelect(index)">
+      <article class="article-item" :class="{'active':article['active']}">
+        <div><h3 class="article-title">{{article['title']}}</h3>
+          <h3 class="icon-shanchu iconfont" @click='del'></h3>
+          <h3 class="icon-xiugai iconfont"></h3>
+        </div>
+        <h6 class="article-time">{{article['time'] | formatTime}}</h6>
+        <p class="article-content" v-text="article['content']"></p>
+      </article>
+    </li>
+  </ul>
 </template>
 <style scoped>
   .list {
@@ -107,9 +107,16 @@
     },
     methods: {
       articleSelect(index){
-        if (index != this.currentId) {
-          this.$store.commit('articleSelect', index)
+        if (!this.$store.state.writing) {
+          if (index != this.currentId) {
+            this.$store.commit('articleSelect', index)
+          }
+        } else {
+          this.$parent.publishVisible = true
         }
+      },
+      del(){
+        this.$store.dispatch('delete')
       }
     },
     filters: {

@@ -11,6 +11,7 @@ import VueBus from 'vue-bus'
 
 Vue.config.productionTip = false
 
+
 Vue.use(ElementUI)
 Vue.use(VueBus)
 
@@ -21,5 +22,5 @@ new Vue({
   template: '<App/>',
   router,
   components: {App},
-  store:store
+  store: store,
 })

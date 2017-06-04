@@ -11,21 +11,15 @@ var vue = new Vue();
 
 //抽离文章选择函数
 function articleSelect(state, index) {
-  if (state.writing) {
-    MsgBox.alert("测试", "测试", () => {
-      console.log(state.newContent)
-    })
-  } else {
-    state.publishing = (state.aList[index]['type'] == 0)
-    state.aList[index]['active'] = true;
-    if (state.aList.length != 1) {
-      state.aList[state.currentId]['active'] = false;
-      state.currentId = index;
-      state.newContent = state.aList[index]['content']
-    }
+  state.publishing = (state.aList[index]['type'] == 0)
+  state.aList[index]['active'] = true;
+  if (state.aList.length != 1) {
+    state.aList[state.currentId]['active'] = false;
     state.currentId = index;
-    vue.$bus.$emit("a-select", index)
+    state.newContent = state.aList[index]['content']
   }
+  state.currentId = index;
+  vue.$bus.$emit("a-select", index)
 }
 
 export default new Vuex.Store({
@@ -35,7 +29,8 @@ export default new Vuex.Store({
     writing: false,
     currentId: 0,
     newContent: "",
-    host: 'http://localhost:3000'
+    host: 'http://localhost:3000',
+    token: ''
   },
   getters: {
     aList(state){
@@ -107,17 +102,64 @@ export default new Vuex.Store({
       state.aList[state.currentId]['type'] = payload.type
       state.aList[state.currentId]['content'] = state.newContent
       var param = state.aList[state.currentId]
-      Http.post(state.host + "/publishArticle", param).then(res => {
+      Http.post(state.host + "/publishArticle", param).then(res => res.json()).then(data => {
         payload.vue.publishVisible = false
         payload.vue.disabled = false
         payload.vue.loading = false
         payload.vue.loading1 = false
         state.writing = false
         state.publishing = false
+        if (data.code == 0) {
+          MsgBox.message('success', '发布博客成功')
+        }
 
       }).catch(function (err) {
         console.log(err)
+        MsgBox.message('error', '网络发生错误')
+        payload.vue.publishVisible = false
+        payload.vue.disabled = false
+        payload.vue.loading = false
+        payload.vue.loading1 = false
       })
+    },
+
+    deleteArticle(state, vue){
+
+    },
+
+    //用户登录
+    login(state, vue){
+      vue.loading = true
+      if (vue.pwd == '' | vue.uname == '') {
+        MsgBox.message('error', '用户名和密码不能为空')
+        vue.loading = false
+      } else {
+        var user = {
+          uname: vue.uname,
+          password: vue.pwd
+        }
+        Http.post(state.host + '/login', user).then(res => res.json()).then(data => {
+          if (data.code == 0) {
+            state.token = data.data.token
+
+            //登录成功 跳转
+            vue.$router.push({path: 'article'})
+
+          } else {
+            MsgBox.message('error', data.msg)
+          }
+          vue.loading = false
+        }).catch(err => {
+          console.log(err.message)
+          MsgBox.message('error', '网络发生错误')
+          vue.loading = false
+        })
+      }
+    },
+    logout(state, vue){
+      state.token = ''
+      vue.$router.push({path: '/'})
+
     }
   },
   actions: {
@@ -128,8 +170,19 @@ export default new Vuex.Store({
       context.commit('addArticle', vue)
     },
     publishArticle(context, payload){
-      console.log(vue)
       context.commit('publishArticle', payload)
+    },
+    deleteArticle(context, vue){
+      context.commit('deleteArticle', vue)
+    },
+
+    //用户
+    login(context, vue){
+      context.commit('login', vue)
+    },
+
+    logout(context, vue){
+      context.commit('logout', vue)
     }
   }
 })

@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var article = require('../controller/articleControler')
+var userController = require('../controller/userController')
 
-router.all('*', function(req, res, next) {
+router.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-    res.header("X-Powered-By",' 3.2.1');
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By", ' 3.2.1');
     res.header("Content-Type", "application/json;charset=utf-8");
     next();
 });
@@ -16,4 +17,5 @@ router.get('/', function (req, res, next) {
 });
 
 article.init(router)
+userController.init(router)
 module.exports = router;
